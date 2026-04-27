@@ -34,7 +34,7 @@ A premium, full-stack authentication starter template built with **TanStack Star
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/custom-clerk-auth-template.git
+   git clone https://github.com/Morshed004/custom-clerk-auth-template.git
    cd custom-clerk-auth-template
    ```
 
