@@ -1,6 +1,6 @@
 {
-  "short_name": "TanStack App",
-  "name": "Create TanStack App Sample",
+  "short_name": "Clerk Custom Sign In and Sign Up ui",
+  "name": "Clerk Custom Sign In and Sign Up ui",
   "icons": [
     {
       "src": "favicon.ico",

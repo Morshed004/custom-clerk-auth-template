@@ -1,209 +1,106 @@
-Welcome to your new TanStack Start app! 
+# Custom-Clerk-Auth-Template
 
-# Getting Started
+A premium, full-stack authentication starter template built with **TanStack Start**, **Clerk**, and **Prisma**. This project demonstrates a high-end implementation of custom authentication flows, moving beyond basic pre-built components to provide a fully branded and optimized user experience.
 
-To run this application:
 
-```bash
-pnpm install
-pnpm dev
+## ✨ Features
+
+-   **Custom Clerk Authentication**: Bespoke implementation using Clerk Hooks (`useSignIn`, `useSignUp`) for total UI control.
+-   **Premium UI/UX**: Crafted with a "Linear" aesthetic using **Tailwind CSS 4.0** and **Lucide React**.
+-   **Secure Verification flow**: custom 6-digit email OTP verification interface.
+-   **Intelligent Sign-up**: Real-time password strength validation and confirmation matching.
+-   **Protected Routes**: Robust dashboard protection using TanStack Router's authentication logic.
+-   **Type Safe**: End-to-end type safety with TypeScript and TanStack Start.
+-   **High Performance**: Powered by Vite and React 19 for instantaneous interactions.
+
+## 🛠️ Tech Stack
+
+-   **Framework**: [TanStack Start](https://tanstack.com/start) (Full-stack React)
+-   **Authentication**: [Clerk](https://clerk.com/) (Custom UI Implementation)
+-   **Database / ORM**: [Prisma](https://www.prisma.io/) with PostgreSQL
+-   **Styling**: [Tailwind CSS 4.0](https://tailwindcss.com/)
+-   **Icons**: [Lucide React](https://lucide.dev/)
+-   **Linting & Formatting**: [Biome](https://biomejs.dev/)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+-   Node.js (v18+)
+-   pnpm (recommended)
+-   Clerk Account
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/custom-clerk-auth-template.git
+   cd custom-clerk-auth-template
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
+
+3. **Environment Setup:**
+   Create a `.env.local` file in the root and add your Clerk keys:
+   ```env
+   VITE_CLERK_PUBLISHABLE_KEY=your_publishable_key
+   CLERK_SECRET_KEY=your_secret_key
+   DATABASE_URL="postgresql://username:password@localhost:5432/custom-clerk-auth-template"
+   ```
+
+4. **Initialize Database:**
+   ```bash
+   pnpm db:push
+   ```
+
+5. **Start Development Server:**
+   ```bash
+   pnpm dev
+   ```
+
+## 📂 Project Structure
+
+```text
+src/
+├── integrations/      # Clerk & Query Provider setups
+├── routes/            # File-based routing (TanStack Router)
+│   ├── index.tsx      # Protected Dashboard
+│   ├── sign-in.$.tsx  # Custom Login Page
+│   ├── sign-up.$.tsx  # Custom Register Page with strength meter
+│   └── verify.tsx     # Custom OTP Verification
+├── db.ts              # Prisma Client instance
+└── main.tsx           # App Entry point
 ```
 
-# Building For Production
+## 🧠 Key Implementation Details
 
-To build this application for production:
+### Custom Authentication Hooks
+Instead of using `<SignIn />`, Custom-Clerk-Auth-Template utilizes lower-level hooks like `useSignIn()` to handle the authentication state manually. This allows for:
+-   Granular loading states and custom error handling.
+-   Complete design flexibility (no Clerk-branded containers).
+-   Custom routing logic during the sign-in/up process.
 
-```bash
-pnpm build
-```
+### Password Strength Meter
+The sign-up flow includes a custom validation engine that calculates password entropy and provides visual feedback to users, ensuring better security from the start.
 
-## Testing
+### Email Verification Flow
+A dedicated `/verify` route handles the OTP submission, featuring auto-focusing inputs and resend logic, providing a seamless onboarding experience.
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+## 📜 Available Scripts
 
-```bash
-pnpm test
-```
+-   `pnpm dev`: Runs the app in development mode.
+-   `pnpm build`: Builds the app for production.
+-   `pnpm db:push`: Syncs the Prisma schema with your database.
+-   `pnpm db:studio`: Opens Prisma Studio to view/edit data.
+-   `pnpm check`: Runs Biome linting and formatting checks.
 
-## Styling
+## 🤝 Contributing
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Removing Tailwind CSS
+---
 
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
-
-```bash
-pnpm lint
-pnpm format
-pnpm check
-```
-
-
-## Setting up Clerk
-
-- Set the `VITE_CLERK_PUBLISHABLE_KEY` in your `.env.local`.
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+Built with ❤️ by [Your Name/Handle]
